@@ -129,3 +129,14 @@ SELECT * FROM Matricula WHERE status = 'ativo';
 
 SELECT * FROM Presenca
 WHERE id_aluno = 1 AND data_entrada = '2023-01-16';
+
+SELECT * FROM Presenca
+WHERE id_aluno = 1 AND data_entrada = '2023-01-16';
+
+update Matricula
+set status = 'suspenso'
+where id_matricula = 1;
+
+update Presenca
+set hora_saida = '10:00:00'
+where id_presenca = 2;
