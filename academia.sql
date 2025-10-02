@@ -171,3 +171,28 @@ CREATE TABLE Evolucao (
 	observacoes TEXT,
 	FOREIGN KEY (id_aluno) REFERENCES Aluno(id_aluno) ON DELETE CASCADE
 );
+
+INSERT INTO Permissao (nome, descricao) VALUES
+('gerenciar_alunos', 'Pode cadastrar, editar e remover alunos'),
+('gerenciar_instrutores', 'Pode cadastrar, editar e remover instrutores'),
+('gerenciar_planos', 'Pode cadastrar, editar e remover planos'),
+('gerenciar_pagamentos', 'Pode registrar e consultar pagamentos'),
+('acessar_conteudos', 'Pode acessar conteúdos educativos'),
+('gerenciar_usuarios', 'Pode cadastrar, editar e remover usuários e permissões'),
+('gerenciar_turmas', 'Pode cadastrar, editar e remover turmas');
+
+-- Exemplo de inserção de tipos de usuário
+INSERT INTO Usuario (nome, email, senha, tipo) VALUES
+('Administrador', 'admin@sistema.com', 'senha123', 'administrador'),
+('João Aluno', 'joao.aluno@email.com', 'senha123', 'aluno'),
+('Maria Instrutora', 'maria.instrutora@email.com', 'senha123', 'instrutor');
+
+update Usuario set senha = MD5(senha);
+update Treino set descricao = 'Treino completo para todas as partes do corpo, focando em força e resistência.';
+update Treino set descricao = 'Treino focado em exercícios cardiovasculares para melhorar a resistência e queima de gordura.';
+
+
+INSERT INTO Usuario_Permissao (id_usuario, id_permissao) VALUES
+((SELECT id_usuario FROM Usuario WHERE email = 'admin@sistema.com'), (SELECT id_permissao FROM Permissao WHERE nome = 'gerenciar_usuarios')),
+((SELECT id_usuario FROM Usuario WHERE email = 'joao.aluno@email.com'), (SELECT id_permissao FROM Permissao WHERE nome = 'acessar_conteudos')),
+((SELECT id_usuario FROM Usuario WHERE email = 'maria.instrutora@email.com'), (SELECT id_permissao FROM Permissao WHERE nome = 'gerenciar_turmas'));
